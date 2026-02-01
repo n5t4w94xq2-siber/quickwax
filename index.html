@@ -2,212 +2,205 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>QuickWax | Elite Performance Detailing</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { --red: #ff0000; --bg: #000000; --text: #ffffff; --card: #080808; }
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        :root { --red: #ff0000; --bg: #000000; --text: #ffffff; --card: #0a0a0a; --glass: rgba(0,0,0,0.85); }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
         canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
-        /* HEADER & NAV */
+        /* HEADER */
         header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000;
+            background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000; padding: 12px 5%;
         }
-        .logo img { height: 45px; filter: drop-shadow(0 0 10px rgba(255,0,0,0.5)); }
-        
-        /* Desktop Menü */
-        .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
-        @media (min-width: 992px) { .nav-links { display: flex; } }
+        .header-main { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo img { height: 42px; filter: drop-shadow(0 0 15px rgba(255,0,0,0.4)); }
 
-        .nav-links a {
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .auth-links { display: flex; gap: 12px; font-family: 'Barlow Condensed'; font-style: italic; font-weight: 900; font-size: 0.9rem; }
+        .auth-links span { cursor: pointer; color: #fff; }
+        .auth-links .reg { color: var(--red); border: 1px solid var(--red); padding: 2px 8px; }
+        
+        .tools { display: flex; gap: 15px; color: var(--red); }
+        .tool-btn { position: relative; cursor: pointer; transition: 0.3s; }
+        .badge { position: absolute; top: -8px; right: -10px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 10px; }
+
+        .nav-scroller {
+            margin-top: 15px; display: flex; justify-content: center; gap: 25px; 
+            overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;
+        }
+        .nav-scroller a {
             color: #fff; text-decoration: none; font-family: 'Barlow Condensed'; font-size: 1.1rem; 
-            font-style: italic; font-weight: 900; text-transform: uppercase; opacity: 0.6; transition: 0.3s;
-        }
-        .nav-links a:hover { opacity: 1; color: var(--red); }
-
-        /* Auth Bölgesi */
-        .auth-zone { display: flex; gap: 15px; border-left: 1px solid #222; padding-left: 20px; align-items: center; }
-        .btn-auth { cursor: pointer; font-family: 'Barlow Condensed'; font-weight: 900; font-style: italic; text-transform: uppercase; transition: 0.3s; font-size: 1rem; color: #fff; }
-        .reg-box { background: var(--red); padding: 5px 12px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
-
-        .header-tools { display: flex; align-items: center; gap: 20px; }
-        .tool-icon { position: relative; cursor: pointer; color: var(--red); }
-        .badge { position: absolute; top: -8px; right: -10px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 5px; border-radius: 50%; }
-
-        /* HERO SECTION */
-        .hero { height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
-        .main-slogan {
-            font-family: 'Barlow Condensed'; font-size: clamp(2.8rem, 12vw, 8.5rem);
-            font-weight: 900; font-style: italic; line-height: 0.85; text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff 40%, #555 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px;
-        }
-        .sub-slogan { color: #888; font-size: clamp(0.9rem, 3vw, 1.2rem); margin-bottom: 35px; max-width: 700px; }
-        .btn-hero {
-            padding: 18px 50px; border: 2px solid var(--red); color: #fff; text-decoration: none;
-            font-family: 'Barlow Condensed'; font-size: 1.6rem; font-weight: 900; font-style: italic;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.4s;
+            font-style: italic; font-weight: 900; text-transform: uppercase; opacity: 0.6; white-space: nowrap;
         }
 
-        /* SHOP SECTION */
-        .section-title { font-family: 'Barlow Condensed'; font-size: clamp(2.5rem, 8vw, 4rem); font-style: italic; text-transform: uppercase; text-align: center; margin: 80px 0 50px; letter-spacing: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
+        /* HERO - SENİN HAVALI SÖZLERİN */
+        .hero { height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
+        .main-title {
+            font-family: 'Barlow Condensed'; font-size: clamp(3.5rem, 15vw, 10rem);
+            font-weight: 900; font-style: italic; line-height: 0.8; text-transform: uppercase;
+            background: linear-gradient(180deg, #fff 30%, #444 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;
+        }
+        .sub-title { color: #888; font-size: clamp(1rem, 4vw, 1.4rem); max-width: 800px; line-height: 1.5; margin-bottom: 40px; }
         
-        .card { background: var(--card); border: 1px solid #111; padding: 30px; text-align: center; position: relative; transition: 0.4s; }
+        .btn-main {
+            padding: 20px 60px; border: 2px solid var(--red); color: #fff;
+            font-family: 'Barlow Condensed'; font-size: 1.8rem; font-weight: 900; font-style: italic;
+            text-decoration: none; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.4s;
+        }
+
+        /* PRODUCTS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto; padding: 50px 5%; }
+        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; text-align: center; position: relative; transition: 0.5s; }
         .card:hover { border-color: var(--red); transform: translateY(-10px); }
         .card img { width: 100%; height: 280px; object-fit: contain; margin-bottom: 20px; }
         
-        .fav-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; color: #fff; z-index: 10; transition: 0.3s; }
-        .fav-btn.active { color: var(--red); }
+        .fav-heart { 
+            position: absolute; top: 20px; right: 20px; font-size: 1.8rem; 
+            color: #333; cursor: pointer; transition: 0.3s; z-index: 10;
+        }
+        .fav-heart.active { color: var(--red); }
         
-        .price { font-size: 2.8rem; font-weight: 900; color: var(--red); font-family: 'Barlow Condensed'; margin-bottom: 20px; }
-        .btn-buy {
+        .product-desc { font-size: 0.95rem; color: #888; line-height: 1.5; margin-bottom: 20px; min-height: 50px; }
+        .price-tag { font-family: 'Barlow Condensed'; font-size: 3.5rem; color: var(--red); font-weight: 900; margin-bottom: 20px; }
+        .buy-now {
             width: 100%; padding: 18px; background: var(--red); color: #fff; border: none; cursor: pointer;
-            font-family: 'Barlow Condensed'; font-weight: 900; font-style: italic; font-size: 1.3rem;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.3s;
+            font-family: 'Barlow Condensed'; font-size: 1.4rem; font-weight: 900; font-style: italic;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
 
         /* PANELS */
         .panel { 
-            position: fixed; right: -100%; top: 0; width: 100%; max-width: 420px; 
-            height: 100vh; background: #050505; border-left: 3px solid var(--red); 
-            z-index: 2000; padding: 40px; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1); 
+            position: fixed; right: -100%; top: 0; width: 100%; max-width: 450px; 
+            height: 100vh; background: #000; border-left: 4px solid var(--red); 
+            z-index: 2000; padding: 40px; transition: 0.7s cubic-bezier(0.9, 0, 0.1, 1); 
         }
         .panel.active { right: 0; }
-        .panel-title { font-family: 'Barlow Condensed'; font-size: 2.5rem; font-style: italic; margin-bottom: 30px; color: var(--red); border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #111; font-family: 'Barlow Condensed'; font-size: 1.3rem; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .panel-title { font-family: 'Barlow Condensed'; font-size: 2.5rem; font-style: italic; color: var(--red); }
+        .item-list .row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #111; font-family: 'Barlow Condensed'; font-size: 1.4rem; }
 
-        footer { padding: 60px; text-align: center; color: #333; font-size: 0.8rem; letter-spacing: 5px; border-top: 1px solid #111; }
+        footer { padding: 80px; text-align: center; color: #333; font-size: 0.8rem; letter-spacing: 6px; }
     </style>
 </head>
 <body>
 
     <canvas id="bg"></canvas>
 
-    <div id="fav-panel" class="panel">
-        <h2 class="panel-title">FAVORİLER ❤️</h2>
-        <div id="fav-list"></div>
-        <i class="fas fa-times" onclick="toggle('fav-panel')" style="position:absolute; top:20px; right:20px; cursor:pointer; color:var(--red); font-size:1.5rem;"></i>
+    <div id="cart-panel" class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">🧺 GARAJINIZ</h2>
+            <i class="fas fa-times fa-2x" onclick="toggle('cart-panel')" style="cursor:pointer; color:var(--red);"></i>
+        </div>
+        <div id="cart-items" class="item-list"></div>
+        <div id="cart-total" style="margin-top:30px; font-family:'Barlow Condensed'; font-size:2.5rem; color:var(--red); font-weight:900;"></div>
     </div>
 
-    <div id="cart-panel" class="panel">
-        <h2 class="panel-title">🧺 GARAJINIZ</h2>
-        <div id="cart-list"></div>
-        <div id="cart-total" style="margin-top:20px; font-weight:900; font-size:2.2rem; color:var(--red);"></div>
-        <i class="fas fa-times" onclick="toggle('cart-panel')" style="position:absolute; top:20px; right:20px; cursor:pointer; color:var(--red); font-size:1.5rem;"></i>
+    <div id="fav-panel" class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">❤️ FAVORİLER</h2>
+            <i class="fas fa-times fa-2x" onclick="toggle('fav-panel')" style="cursor:pointer; color:var(--red);"></i>
+        </div>
+        <div id="fav-items" class="item-list"></div>
     </div>
 
     <header>
-        <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWax'"></div>
-        
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#">Anasayfa</a></li>
-                <li><a href="#shop">Ürünler</a></li>
-                <li><a href="#">Hakkımızda</a></li>
-                <li><a href="#">İletişim</a></li>
-                <li class="auth-zone">
-                    <span class="btn-auth">GİRİŞ YAP</span>
-                    <span class="btn-auth reg-box">KAYDOL</span>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="header-tools">
-            <div class="tool-icon" onclick="toggle('fav-panel')"><i class="fas fa-heart fa-2x"></i><span id="f-count" class="badge">0</span></div>
-            <div class="tool-icon" onclick="toggle('cart-panel')"><i class="fas fa-shopping-basket fa-2x"></i><span id="c-count" class="badge">0</span></div>
+        <div class="header-main">
+            <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWAX'"></div>
+            <div class="header-actions">
+                <div class="auth-links"><span>GİRİŞ YAP</span><span class="reg">KAYDOL</span></div>
+                <div class="tools">
+                    <div class="tool-btn" onclick="toggle('fav-panel')"><i class="fas fa-heart fa-xl"></i><span id="f-badge" class="badge">0</span></div>
+                    <div class="tool-btn" onclick="toggle('cart-panel')"><i class="fas fa-shopping-basket fa-xl"></i><span id="c-badge" class="badge">0</span></div>
+                </div>
+            </div>
         </div>
+        <nav class="nav-scroller">
+            <a href="#">Anasayfa</a><a href="#shop">Ürünler</a><a href="#">Hakkımızda</a><a href="#">İletişim</a>
+        </nav>
     </header>
 
     <section class="hero">
-        <h1 class="main-slogan">STANDARTLARI <br>YOK ET.</h1>
-        <p class="sub-slogan">Aracınız sadece ışığı yansıtmaz; asfaltta mutlak bir otorite kurar. Sıradan parlamayı geride bırakın.</p>
-        <a href="#shop" class="btn-hero">ÜRÜNLERİ KEŞFET</a>
+        <h1 class="main-title">STANDARTLARI <br>YOK ET.</h1>
+        <p class="sub-title">Aracınız sadece ışığı yansıtmaz; asfaltta mutlak bir otorite kurar. Sıradan parlamayı geride bırakın.</p>
+        <a href="#shop" class="btn-main">KOLEKSİYONU GÖR</a>
     </section>
-
-    <h2 class="section-title">DETAY MERKEZİ</h2>
 
     <main class="grid" id="shop">
         <div class="card" data-id="1">
-            <div class="fav-btn" onclick="toggleFav(1, 'Angelina Parfüm', 650, this)"><i class="fas fa-heart fa-2x"></i></div>
-            <img src="urunler/Angelina Parfum.jpg" alt="Parfüm">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem;">Angelina Parfüm</h3>
-            <p style="font-size:0.95rem; color:#888; margin: 15px 0;">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esans.</p>
-            <div class="price">650 ₺</div>
-            <button class="btn-buy" onclick="add('Angelina Parfüm', 650)">SEPETE EKLE</button>
+            <i class="fas fa-heart fav-heart" onclick="toggleFav(1, 'Angelina Parfüm', 650, this)"></i>
+            <img src="urunler/Angelina Parfum.jpg" alt="Angelina">
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.2rem;">ANGELINA PARFÜM</h3>
+            <p class="product-desc">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esansıyla aracınızın havasını tamamen değiştirir.</p>
+            <div class="price-tag">650 ₺</div>
+            <button class="buy-now" onclick="addToCart('Angelina Parfüm', 650)">SEPETE EKLE</button>
         </div>
 
         <div class="card" data-id="2">
-            <div class="fav-btn" onclick="toggleFav(2, 'Demir Tozu Çözücü', 500, this)"><i class="fas fa-heart fa-2x"></i></div>
+            <i class="fas fa-heart fav-heart" onclick="toggleFav(2, 'Demir Tozu Çözücü', 500, this)"></i>
             <img src="urunler/Balata Demir Tozu Temizleyici.jpg" alt="Temizleyici">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem;">Demir Tozu Çözücü</h3>
-            <p style="font-size:0.95rem; color:#888; margin: 15px 0;">Jantlardaki en inatçı tozları saniyeler içinde yok eder.</p>
-            <div class="price">500 ₺</div>
-            <button class="btn-buy" onclick="add('Demir Tozu Çözücü', 500)">SEPETE EKLE</button>
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.2rem;">DEMİR TOZU ÇÖZÜCÜ</h3>
+            <p class="product-desc">Jantlardaki en inatçı balata tozlarını bile saniyeler içinde çözer. Profesyonellerin tercihi.</p>
+            <div class="price-tag">500 ₺</div>
+            <button class="buy-now" onclick="addToCart('Demir Tozu Çözücü', 500)">SEPETE EKLE</button>
         </div>
     </main>
 
-    <footer>QUICK WAX PERFORMANCE // 2026 // BURSA</footer>
+    <footer>QUICK WAX PERFORMANCE // 2026</footer>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem('qw-cart')) || [];
-        let favs = JSON.parse(localStorage.getItem('qw-favs')) || [];
-
+        let cart = [];
+        let favs = [];
         function toggle(id) { document.getElementById(id).classList.toggle('active'); }
-        function add(name, price) { cart.push({name, price}); save(); }
-        function toggleFav(id, name, price) {
+        function addToCart(name, price) {
+            cart.push({name, price}); render();
+            if(cart.length === 1) toggle('cart-panel');
+        }
+        function toggleFav(id, name, price, el) {
+            el.classList.toggle('active');
             const idx = favs.findIndex(f => f.id === id);
             if(idx === -1) favs.push({id, name, price});
             else favs.splice(idx, 1);
-            save();
-        }
-        function save() {
-            localStorage.setItem('qw-cart', JSON.stringify(cart));
-            localStorage.setItem('qw-favs', JSON.stringify(favs));
             render();
         }
         function render() {
-            const cList = document.getElementById('cart-list');
+            const cList = document.getElementById('cart-items');
             let total = 0; cList.innerHTML = "";
-            cart.forEach(i => { total += i.price; cList.innerHTML += `<div class="item-row"><span>${i.name}</span><b>${i.price} ₺</b></div>`; });
-            document.getElementById('c-count').innerText = cart.length;
-            document.getElementById('cart-total').innerText = total > 0 ? `TOPLAM: ${total} ₺` : "SEPET BOŞ";
+            cart.forEach(item => { total += item.price; cList.innerHTML += `<div class="row"><span>${item.name}</span><b>${item.price} ₺</b></div>`; });
+            document.getElementById('c-badge').innerText = cart.length;
+            document.getElementById('cart-total').innerText = total > 0 ? `TOPLAM: ${total} ₺` : "BOŞ";
 
-            const fList = document.getElementById('fav-list');
-            fList.innerHTML = favs.length === 0 ? '<p style="opacity:0.2">Henüz favori yok.</p>' : "";
-            favs.forEach(f => { fList.innerHTML += `<div class="item-row"><span>${f.name}</span><b>${f.price} ₺</b></div>`; });
-            document.getElementById('f-count').innerText = favs.length;
-
-            document.querySelectorAll('.card').forEach(card => {
-                const id = parseInt(card.dataset.id);
-                card.querySelector('.fav-btn').classList.toggle('active', favs.some(f => f.id === id));
-            });
+            const fList = document.getElementById('fav-items');
+            fList.innerHTML = favs.length === 0 ? '<p style="opacity:0.3">Henüz favori yok.</p>' : "";
+            favs.forEach(f => { fList.innerHTML += `<div class="row"><span>${f.name}</span><b>${f.price} ₺</b></div>`; });
+            document.getElementById('f-badge').innerText = favs.length;
         }
-
         const canvas = document.getElementById('bg');
         const ctx = canvas.getContext('2d');
-        let pts = [];
+        let particles = [];
         function init() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            pts = []; for(let i=0; i<60; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*1.5});
+            particles = []; for(let i=0; i<40; i++) particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*2, speed:Math.random()*0.5+0.2});
         }
-        function draw() {
+        function animate() {
             ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = 'rgba(255,0,0,0.3)';
-            pts.forEach(p => {
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
-                p.y -= 0.4; if(p.y < 0) p.y = canvas.height;
+            ctx.fillStyle = 'rgba(255,0,0,0.4)';
+            particles.forEach(p => {
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+                p.y -= p.speed; if(p.y < 0) p.y = canvas.height;
             });
-            requestAnimationFrame(draw);
+            requestAnimationFrame(animate);
         }
         window.addEventListener('resize', init);
-        init(); draw(); render();
+        init(); animate();
     </script>
 </body>
 </html>
