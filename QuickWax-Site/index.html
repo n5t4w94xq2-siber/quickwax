@@ -13,7 +13,6 @@
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
         canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
-        /* HEADER */
         header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
@@ -35,7 +34,6 @@
         .tool-icon { position: relative; cursor: pointer; color: var(--red); transition: 0.3s; }
         .badge { position: absolute; top: -10px; right: -12px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 50%; }
 
-        /* HERO SECTION - ESKİ HAVALI SÖZ GELDİ */
         .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
         .main-slogan {
             font-family: 'Barlow Condensed'; font-size: clamp(3.5rem, 15vw, 10rem);
@@ -51,7 +49,6 @@
         }
         .btn-hero:hover { background: var(--red); box-shadow: 0 0 50px var(--red); transform: scale(1.05); }
 
-        /* SHOP SECTION */
         .section-title { font-family: 'Barlow Condensed'; font-size: 4rem; font-style: italic; text-transform: uppercase; text-align: center; margin: 100px 0 60px; letter-spacing: 5px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
         .card { background: var(--card); border: 1px solid #111; padding: 30px; text-align: center; position: relative; transition: 0.4s; }
@@ -69,7 +66,6 @@
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.3s;
         }
 
-        /* PANELS */
         .panel { position: fixed; right: -450px; top: 0; width: 420px; height: 100vh; background: #050505; border-left: 3px solid var(--red); z-index: 2000; padding: 40px; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1); }
         .panel.active { right: 0; }
         .panel-title { font-family: 'Barlow Condensed'; font-size: 2.5rem; font-style: italic; margin-bottom: 30px; color: var(--red); border-bottom: 1px solid #222; padding-bottom: 10px; }
@@ -96,7 +92,7 @@
     </div>
 
     <header>
-        <div class="logo"><img src="QuickWax-Site/logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWax'"></div>
+        <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWax'"></div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#">Anasayfa</a></li>
@@ -126,7 +122,7 @@
     <main class="grid" id="shop">
         <div class="card" data-id="1">
             <div class="fav-btn" onclick="toggleFav(1, 'Angelina Parfüm', 650, this)"><i class="fas fa-heart fa-2x"></i></div>
-            <img src="QuickWax-Site/urunler/Angelina Parfum.jpg" alt="Parfüm">
+            <img src="urunler/Angelina Parfum.jpg" alt="Parfüm">
             <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem; margin-bottom:10px;">Angelina Parfüm</h3>
             <p class="product-desc">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esansıyla aracınızın havasını tamamen değiştirir.</p>
             <div class="price">650 ₺</div>
@@ -135,7 +131,7 @@
 
         <div class="card" data-id="2">
             <div class="fav-btn" onclick="toggleFav(2, 'Demir Tozu Çözücü', 500, this)"><i class="fas fa-heart fa-2x"></i></div>
-            <img src="QuickWax-Site/urunler/Balata Demir Tozu Temizleyici.jpg" alt="Temizleyici">
+            <img src="urunler/Balata Demir Tozu Temizleyici.jpg" alt="Temizleyici">
             <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem; margin-bottom:10px;">Demir Tozu Çözücü</h3>
             <p class="product-desc">Jantlardaki en inatçı balata tozlarını bile saniyeler içinde çözer. Profesyonellerin tercihi.</p>
             <div class="price">500 ₺</div>
@@ -150,25 +146,18 @@
         let favs = JSON.parse(localStorage.getItem('qw-favs')) || [];
 
         function toggle(id) { document.getElementById(id).classList.toggle('active'); }
-
-        function add(name, price) {
-            cart.push({name, price});
-            save();
-        }
-
+        function add(name, price) { cart.push({name, price}); save(); }
         function toggleFav(id, name, price, btn) {
             const idx = favs.findIndex(f => f.id === id);
             if(idx === -1) favs.push({id, name, price});
             else favs.splice(idx, 1);
             save();
         }
-
         function save() {
             localStorage.setItem('qw-cart', JSON.stringify(cart));
             localStorage.setItem('qw-favs', JSON.stringify(favs));
             render();
         }
-
         function render() {
             const cList = document.getElementById('cart-list');
             let total = 0; cList.innerHTML = "";
