@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { --red: #ff0000; --bg: #000000; --text: #ffffff; --card: #0a0a0a; --glass: rgba(0,0,0,0.85); }
+        :root { --red: #ff0000; --bg: #000000; --text: #ffffff; --card: #0a0a0a; --glass: rgba(0,0,0,0.95); }
         
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
@@ -18,77 +18,82 @@
         /* HEADER */
         header {
             background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000; padding: 12px 5%;
+            border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000; padding: 8px 5%;
         }
+
+        /* Üst Küçük Bar: Giriş Yap / Kaydol */
+        .auth-bar {
+            display: flex; justify-content: flex-end; gap: 15px; 
+            padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px;
+            font-family: 'Barlow Condensed'; font-style: italic; font-weight: 900; font-size: 0.85rem;
+        }
+        .auth-bar span { cursor: pointer; color: #fff; opacity: 0.8; }
+        .auth-bar .reg-btn { color: var(--red); border: 1px solid var(--red); padding: 0 8px; border-radius: 2px; }
+
+        /* Orta Bar: Logo ve Araçlar */
         .header-main { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo img { height: 42px; filter: drop-shadow(0 0 15px rgba(255,0,0,0.4)); }
+        .logo img { height: 35px; filter: drop-shadow(0 0 10px rgba(255,0,0,0.3)); }
 
-        .header-actions { display: flex; align-items: center; gap: 20px; }
-        .auth-links { display: flex; gap: 12px; font-family: 'Barlow Condensed'; font-style: italic; font-weight: 900; font-size: 0.9rem; }
-        .auth-links span { cursor: pointer; color: #fff; }
-        .auth-links .reg { color: var(--red); border: 1px solid var(--red); padding: 2px 8px; }
-        
-        .tools { display: flex; gap: 15px; color: var(--red); }
-        .tool-btn { position: relative; cursor: pointer; transition: 0.3s; }
-        .badge { position: absolute; top: -8px; right: -10px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 10px; }
+        .tools { display: flex; gap: 18px; color: var(--red); align-items: center; }
+        .tool-btn { position: relative; cursor: pointer; }
+        .badge { position: absolute; top: -8px; right: -10px; background: #fff; color: #000; font-size: 9px; font-weight: 900; padding: 2px 5px; border-radius: 10px; }
 
+        /* Alt Bar: Navigasyon */
         .nav-scroller {
-            margin-top: 15px; display: flex; justify-content: center; gap: 25px; 
+            margin-top: 10px; display: flex; justify-content: center; gap: 20px; 
             overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;
         }
+        .nav-scroller::-webkit-scrollbar { display: none; }
         .nav-scroller a {
-            color: #fff; text-decoration: none; font-family: 'Barlow Condensed'; font-size: 1.1rem; 
+            color: #fff; text-decoration: none; font-family: 'Barlow Condensed'; font-size: 0.95rem; 
             font-style: italic; font-weight: 900; text-transform: uppercase; opacity: 0.6; white-space: nowrap;
         }
 
-        /* HERO - SENİN HAVALI SÖZLERİN */
-        .hero { height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
+        /* HERO */
+        .hero { height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
         .main-title {
-            font-family: 'Barlow Condensed'; font-size: clamp(3.5rem, 15vw, 10rem);
-            font-weight: 900; font-style: italic; line-height: 0.8; text-transform: uppercase;
-            background: linear-gradient(180deg, #fff 30%, #444 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;
+            font-family: 'Barlow Condensed'; font-size: clamp(3rem, 14vw, 9rem);
+            font-weight: 900; font-style: italic; line-height: 0.85; text-transform: uppercase;
+            background: linear-gradient(180deg, #fff 40%, #555 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;
         }
-        .sub-title { color: #888; font-size: clamp(1rem, 4vw, 1.4rem); max-width: 800px; line-height: 1.5; margin-bottom: 40px; }
+        .sub-title { color: #888; font-size: clamp(0.9rem, 3.5vw, 1.2rem); max-width: 700px; line-height: 1.4; margin-bottom: 30px; }
         
         .btn-main {
-            padding: 20px 60px; border: 2px solid var(--red); color: #fff;
-            font-family: 'Barlow Condensed'; font-size: 1.8rem; font-weight: 900; font-style: italic;
+            padding: 18px 50px; border: 2px solid var(--red); color: #fff;
+            font-family: 'Barlow Condensed'; font-size: 1.6rem; font-weight: 900; font-style: italic;
             text-decoration: none; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.4s;
         }
 
         /* PRODUCTS */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto; padding: 50px 5%; }
-        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; text-align: center; position: relative; transition: 0.5s; }
-        .card:hover { border-color: var(--red); transform: translateY(-10px); }
-        .card img { width: 100%; height: 280px; object-fit: contain; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; padding: 40px 5%; }
+        .card { background: var(--card); border: 1px solid #151515; padding: 25px; text-align: center; position: relative; transition: 0.5s; }
+        .card:hover { border-color: var(--red); }
+        .card img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 15px; }
         
-        .fav-heart { 
-            position: absolute; top: 20px; right: 20px; font-size: 1.8rem; 
-            color: #333; cursor: pointer; transition: 0.3s; z-index: 10;
-        }
+        .fav-heart { position: absolute; top: 15px; right: 15px; font-size: 1.7rem; color: #222; cursor: pointer; z-index: 10; transition: 0.3s; }
         .fav-heart.active { color: var(--red); }
         
-        .product-desc { font-size: 0.95rem; color: #888; line-height: 1.5; margin-bottom: 20px; min-height: 50px; }
-        .price-tag { font-family: 'Barlow Condensed'; font-size: 3.5rem; color: var(--red); font-weight: 900; margin-bottom: 20px; }
+        .product-desc { font-size: 0.9rem; color: #777; line-height: 1.4; margin-bottom: 15px; min-height: 45px; }
+        .price-tag { font-family: 'Barlow Condensed'; font-size: 3rem; color: var(--red); font-weight: 900; margin-bottom: 15px; }
         .buy-now {
-            width: 100%; padding: 18px; background: var(--red); color: #fff; border: none; cursor: pointer;
-            font-family: 'Barlow Condensed'; font-size: 1.4rem; font-weight: 900; font-style: italic;
+            width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; cursor: pointer;
+            font-family: 'Barlow Condensed'; font-size: 1.3rem; font-weight: 900; font-style: italic;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
 
         /* PANELS */
         .panel { 
-            position: fixed; right: -100%; top: 0; width: 100%; max-width: 450px; 
-            height: 100vh; background: #000; border-left: 4px solid var(--red); 
-            z-index: 2000; padding: 40px; transition: 0.7s cubic-bezier(0.9, 0, 0.1, 1); 
+            position: fixed; right: -100%; top: 0; width: 100%; max-width: 400px; 
+            height: 100vh; background: #000; border-left: 3px solid var(--red); 
+            z-index: 2000; padding: 30px; transition: 0.6s cubic-bezier(0.9, 0, 0.1, 1); 
         }
         .panel.active { right: 0; }
-        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 15px; }
-        .panel-title { font-family: 'Barlow Condensed'; font-size: 2.5rem; font-style: italic; color: var(--red); }
-        .item-list .row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #111; font-family: 'Barlow Condensed'; font-size: 1.4rem; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .panel-title { font-family: 'Barlow Condensed'; font-size: 2rem; font-style: italic; color: var(--red); }
+        .item-list .row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #111; font-family: 'Barlow Condensed'; font-size: 1.2rem; }
 
-        footer { padding: 80px; text-align: center; color: #333; font-size: 0.8rem; letter-spacing: 6px; }
+        footer { padding: 60px; text-align: center; color: #333; font-size: 0.75rem; letter-spacing: 4px; }
     </style>
 </head>
 <body>
@@ -98,31 +103,34 @@
     <div id="cart-panel" class="panel">
         <div class="panel-header">
             <h2 class="panel-title">🧺 GARAJINIZ</h2>
-            <i class="fas fa-times fa-2x" onclick="toggle('cart-panel')" style="cursor:pointer; color:var(--red);"></i>
+            <i class="fas fa-times fa-xl" onclick="toggle('cart-panel')" style="cursor:pointer; color:var(--red);"></i>
         </div>
         <div id="cart-items" class="item-list"></div>
-        <div id="cart-total" style="margin-top:30px; font-family:'Barlow Condensed'; font-size:2.5rem; color:var(--red); font-weight:900;"></div>
+        <div id="cart-total" style="margin-top:25px; font-family:'Barlow Condensed'; font-size:2rem; color:var(--red); font-weight:900;"></div>
     </div>
 
     <div id="fav-panel" class="panel">
         <div class="panel-header">
             <h2 class="panel-title">❤️ FAVORİLER</h2>
-            <i class="fas fa-times fa-2x" onclick="toggle('fav-panel')" style="cursor:pointer; color:var(--red);"></i>
+            <i class="fas fa-times fa-xl" onclick="toggle('fav-panel')" style="cursor:pointer; color:var(--red);"></i>
         </div>
         <div id="fav-items" class="item-list"></div>
     </div>
 
     <header>
+        <div class="auth-bar">
+            <span>GİRİŞ YAP</span>
+            <span class="reg-btn">KAYDOL</span>
+        </div>
+
         <div class="header-main">
-            <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWAX'"></div>
-            <div class="header-actions">
-                <div class="auth-links"><span>GİRİŞ YAP</span><span class="reg">KAYDOL</span></div>
-                <div class="tools">
-                    <div class="tool-btn" onclick="toggle('fav-panel')"><i class="fas fa-heart fa-xl"></i><span id="f-badge" class="badge">0</span></div>
-                    <div class="tool-btn" onclick="toggle('cart-panel')"><i class="fas fa-shopping-basket fa-xl"></i><span id="c-badge" class="badge">0</span></div>
-                </div>
+            <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/120x35/000/ff0000?text=QuickWAX'"></div>
+            <div class="tools">
+                <div class="tool-btn" onclick="toggle('fav-panel')"><i class="fas fa-heart fa-lg"></i><span id="f-badge" class="badge">0</span></div>
+                <div class="tool-btn" onclick="toggle('cart-panel')"><i class="fas fa-shopping-basket fa-lg"></i><span id="c-badge" class="badge">0</span></div>
             </div>
         </div>
+
         <nav class="nav-scroller">
             <a href="#">Anasayfa</a><a href="#shop">Ürünler</a><a href="#">Hakkımızda</a><a href="#">İletişim</a>
         </nav>
@@ -138,7 +146,7 @@
         <div class="card" data-id="1">
             <i class="fas fa-heart fav-heart" onclick="toggleFav(1, 'Angelina Parfüm', 650, this)"></i>
             <img src="urunler/Angelina Parfum.jpg" alt="Angelina">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.2rem;">ANGELINA PARFÜM</h3>
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2rem;">ANGELINA PARFÜM</h3>
             <p class="product-desc">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esansıyla aracınızın havasını tamamen değiştirir.</p>
             <div class="price-tag">650 ₺</div>
             <button class="buy-now" onclick="addToCart('Angelina Parfüm', 650)">SEPETE EKLE</button>
@@ -147,7 +155,7 @@
         <div class="card" data-id="2">
             <i class="fas fa-heart fav-heart" onclick="toggleFav(2, 'Demir Tozu Çözücü', 500, this)"></i>
             <img src="urunler/Balata Demir Tozu Temizleyici.jpg" alt="Temizleyici">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.2rem;">DEMİR TOZU ÇÖZÜCÜ</h3>
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2rem;">DEMİR TOZU ÇÖZÜCÜ</h3>
             <p class="product-desc">Jantlardaki en inatçı balata tozlarını bile saniyeler içinde çözer. Profesyonellerin tercihi.</p>
             <div class="price-tag">500 ₺</div>
             <button class="buy-now" onclick="addToCart('Demir Tozu Çözücü', 500)">SEPETE EKLE</button>
@@ -157,8 +165,7 @@
     <footer>QUICK WAX PERFORMANCE // 2026</footer>
 
     <script>
-        let cart = [];
-        let favs = [];
+        let cart = []; let favs = [];
         function toggle(id) { document.getElementById(id).classList.toggle('active'); }
         function addToCart(name, price) {
             cart.push({name, price}); render();
@@ -183,24 +190,17 @@
             favs.forEach(f => { fList.innerHTML += `<div class="row"><span>${f.name}</span><b>${f.price} ₺</b></div>`; });
             document.getElementById('f-badge').innerText = favs.length;
         }
-        const canvas = document.getElementById('bg');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        const canvas = document.getElementById('bg'); const ctx = canvas.getContext('2d'); let particles = [];
         function init() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            particles = []; for(let i=0; i<40; i++) particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*2, speed:Math.random()*0.5+0.2});
+            particles = []; for(let i=0; i<35; i++) particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*1.5, speed:Math.random()*0.4+0.1});
         }
         function animate() {
-            ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = 'rgba(255,0,0,0.4)';
-            particles.forEach(p => {
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-                p.y -= p.speed; if(p.y < 0) p.y = canvas.height;
-            });
+            ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle = 'rgba(255,0,0,0.3)';
+            particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); p.y -= p.speed; if(p.y < 0) p.y = canvas.height; });
             requestAnimationFrame(animate);
         }
-        window.addEventListener('resize', init);
-        init(); animate();
+        window.addEventListener('resize', init); init(); animate();
     </script>
 </body>
 </html>
