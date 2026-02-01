@@ -13,60 +13,72 @@
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
         canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
+        /* HEADER & NAV */
         header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000;
         }
-        .logo img { height: 50px; filter: drop-shadow(0 0 10px rgba(255,0,0,0.5)); }
-        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+        .logo img { height: 45px; filter: drop-shadow(0 0 10px rgba(255,0,0,0.5)); }
+        
+        /* Desktop Menü */
+        .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
+        @media (min-width: 992px) { .nav-links { display: flex; } }
+
         .nav-links a {
-            color: #fff; text-decoration: none; font-family: 'Barlow Condensed'; font-size: 1.2rem; 
+            color: #fff; text-decoration: none; font-family: 'Barlow Condensed'; font-size: 1.1rem; 
             font-style: italic; font-weight: 900; text-transform: uppercase; opacity: 0.6; transition: 0.3s;
         }
         .nav-links a:hover { opacity: 1; color: var(--red); }
 
-        .auth-zone { display: flex; gap: 15px; border-left: 1px solid #222; padding-left: 20px; }
-        .btn-auth { cursor: pointer; font-family: 'Barlow Condensed'; font-weight: 900; font-style: italic; text-transform: uppercase; transition: 0.3s; }
-        .reg-box { background: var(--red); padding: 5px 15px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
+        /* Auth Bölgesi */
+        .auth-zone { display: flex; gap: 15px; border-left: 1px solid #222; padding-left: 20px; align-items: center; }
+        .btn-auth { cursor: pointer; font-family: 'Barlow Condensed'; font-weight: 900; font-style: italic; text-transform: uppercase; transition: 0.3s; font-size: 1rem; color: #fff; }
+        .reg-box { background: var(--red); padding: 5px 12px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
 
         .header-tools { display: flex; align-items: center; gap: 20px; }
-        .tool-icon { position: relative; cursor: pointer; color: var(--red); transition: 0.3s; }
-        .badge { position: absolute; top: -10px; right: -12px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 50%; }
+        .tool-icon { position: relative; cursor: pointer; color: var(--red); }
+        .badge { position: absolute; top: -8px; right: -10px; background: #fff; color: #000; font-size: 10px; font-weight: 900; padding: 2px 5px; border-radius: 50%; }
 
-        .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
+        /* HERO SECTION */
+        .hero { height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
         .main-slogan {
-            font-family: 'Barlow Condensed'; font-size: clamp(3.5rem, 15vw, 10rem);
-            font-weight: 900; font-style: italic; line-height: 0.8; text-transform: uppercase;
+            font-family: 'Barlow Condensed'; font-size: clamp(2.8rem, 12vw, 8.5rem);
+            font-weight: 900; font-style: italic; line-height: 0.85; text-transform: uppercase;
             background: linear-gradient(to bottom, #fff 40%, #555 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px;
         }
-        .sub-slogan { color: #888; font-size: 1.3rem; margin-bottom: 40px; max-width: 800px; font-weight: 300; }
+        .sub-slogan { color: #888; font-size: clamp(0.9rem, 3vw, 1.2rem); margin-bottom: 35px; max-width: 700px; }
         .btn-hero {
-            padding: 22px 65px; border: 2px solid var(--red); color: #fff; text-decoration: none;
-            font-family: 'Barlow Condensed'; font-size: 1.8rem; font-weight: 900; font-style: italic;
+            padding: 18px 50px; border: 2px solid var(--red); color: #fff; text-decoration: none;
+            font-family: 'Barlow Condensed'; font-size: 1.6rem; font-weight: 900; font-style: italic;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.4s;
         }
-        .btn-hero:hover { background: var(--red); box-shadow: 0 0 50px var(--red); transform: scale(1.05); }
 
-        .section-title { font-family: 'Barlow Condensed'; font-size: 4rem; font-style: italic; text-transform: uppercase; text-align: center; margin: 100px 0 60px; letter-spacing: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
+        /* SHOP SECTION */
+        .section-title { font-family: 'Barlow Condensed'; font-size: clamp(2.5rem, 8vw, 4rem); font-style: italic; text-transform: uppercase; text-align: center; margin: 80px 0 50px; letter-spacing: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 5% 100px; }
+        
         .card { background: var(--card); border: 1px solid #111; padding: 30px; text-align: center; position: relative; transition: 0.4s; }
         .card:hover { border-color: var(--red); transform: translateY(-10px); }
-        .card img { width: 100%; height: 300px; object-fit: contain; margin-bottom: 20px; transition: 0.5s; }
+        .card img { width: 100%; height: 280px; object-fit: contain; margin-bottom: 20px; }
         
         .fav-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; color: #fff; z-index: 10; transition: 0.3s; }
         .fav-btn.active { color: var(--red); }
         
-        .product-desc { font-size: 0.95rem; color: #888; line-height: 1.5; margin-bottom: 20px; min-height: 50px; }
-        .price { font-size: 3rem; font-weight: 900; color: var(--red); font-family: 'Barlow Condensed'; margin-bottom: 25px; }
+        .price { font-size: 2.8rem; font-weight: 900; color: var(--red); font-family: 'Barlow Condensed'; margin-bottom: 20px; }
         .btn-buy {
             width: 100%; padding: 18px; background: var(--red); color: #fff; border: none; cursor: pointer;
             font-family: 'Barlow Condensed'; font-weight: 900; font-style: italic; font-size: 1.3rem;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.3s;
         }
 
-        .panel { position: fixed; right: -450px; top: 0; width: 420px; height: 100vh; background: #050505; border-left: 3px solid var(--red); z-index: 2000; padding: 40px; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1); }
+        /* PANELS */
+        .panel { 
+            position: fixed; right: -100%; top: 0; width: 100%; max-width: 420px; 
+            height: 100vh; background: #050505; border-left: 3px solid var(--red); 
+            z-index: 2000; padding: 40px; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1); 
+        }
         .panel.active { right: 0; }
         .panel-title { font-family: 'Barlow Condensed'; font-size: 2.5rem; font-style: italic; margin-bottom: 30px; color: var(--red); border-bottom: 1px solid #222; padding-bottom: 10px; }
         .item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #111; font-family: 'Barlow Condensed'; font-size: 1.3rem; }
@@ -93,6 +105,7 @@
 
     <header>
         <div class="logo"><img src="logo.jpg" alt="QuickWax" onerror="this.src='https://via.placeholder.com/150x50/000/ff0000?text=QuickWax'"></div>
+        
         <nav>
             <ul class="nav-links">
                 <li><a href="#">Anasayfa</a></li>
@@ -105,6 +118,7 @@
                 </li>
             </ul>
         </nav>
+
         <div class="header-tools">
             <div class="tool-icon" onclick="toggle('fav-panel')"><i class="fas fa-heart fa-2x"></i><span id="f-count" class="badge">0</span></div>
             <div class="tool-icon" onclick="toggle('cart-panel')"><i class="fas fa-shopping-basket fa-2x"></i><span id="c-count" class="badge">0</span></div>
@@ -123,8 +137,8 @@
         <div class="card" data-id="1">
             <div class="fav-btn" onclick="toggleFav(1, 'Angelina Parfüm', 650, this)"><i class="fas fa-heart fa-2x"></i></div>
             <img src="urunler/Angelina Parfum.jpg" alt="Parfüm">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem; margin-bottom:10px;">Angelina Parfüm</h3>
-            <p class="product-desc">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esansıyla aracınızın havasını tamamen değiştirir.</p>
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem;">Angelina Parfüm</h3>
+            <p style="font-size:0.95rem; color:#888; margin: 15px 0;">Lüksün en taze hali. Uzun süre kalıcı ve etkileyici esans.</p>
             <div class="price">650 ₺</div>
             <button class="btn-buy" onclick="add('Angelina Parfüm', 650)">SEPETE EKLE</button>
         </div>
@@ -132,8 +146,8 @@
         <div class="card" data-id="2">
             <div class="fav-btn" onclick="toggleFav(2, 'Demir Tozu Çözücü', 500, this)"><i class="fas fa-heart fa-2x"></i></div>
             <img src="urunler/Balata Demir Tozu Temizleyici.jpg" alt="Temizleyici">
-            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem; margin-bottom:10px;">Demir Tozu Çözücü</h3>
-            <p class="product-desc">Jantlardaki en inatçı balata tozlarını bile saniyeler içinde çözer. Profesyonellerin tercihi.</p>
+            <h3 style="font-family:'Barlow Condensed'; font-style:italic; font-size:2.5rem;">Demir Tozu Çözücü</h3>
+            <p style="font-size:0.95rem; color:#888; margin: 15px 0;">Jantlardaki en inatçı tozları saniyeler içinde yok eder.</p>
             <div class="price">500 ₺</div>
             <button class="btn-buy" onclick="add('Demir Tozu Çözücü', 500)">SEPETE EKLE</button>
         </div>
@@ -147,7 +161,7 @@
 
         function toggle(id) { document.getElementById(id).classList.toggle('active'); }
         function add(name, price) { cart.push({name, price}); save(); }
-        function toggleFav(id, name, price, btn) {
+        function toggleFav(id, name, price) {
             const idx = favs.findIndex(f => f.id === id);
             if(idx === -1) favs.push({id, name, price});
             else favs.splice(idx, 1);
